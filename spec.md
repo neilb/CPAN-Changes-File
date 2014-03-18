@@ -87,4 +87,5 @@ MetaCPAN.
    wouldn't display comments.
  * The filename may be Changes, CHANGES, ChangeLog, or NEWS
  * The content is assumed to be UTF-8
+ * Releases should be listed in date order, most recent to oldest.
 
