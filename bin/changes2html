@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+#
+# changes2html
+#
+# Demo use of the API by using it to generate simple HTML version
+# of a Changes file.
+#
+# For a real script like this I'd use the template toolkit.
+#
+use strict;
+use warnings;
+use CPAN::Changes::File;
+
+die "usage: $0 <path-to-Changes>\n" unless @ARGV == 1;
+
+my $changes  = CPAN::Changes::File->new(path => $ARGV[0]);
+
+die "couldn't find any releases\n" unless @{ $changes->releases } > 0;
+
+my $title    = $changes->title // 'Changes file';
+
+print <<"END_HEADER";
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>$title</title>
+    </head>
+<body>
+    <h1>$title</h1>
+END_HEADER
+
+if (defined($changes->preamble)) {
+    print '<p class=preamble>', $changes->preamble, "</p>\n";
+}
+
+foreach my $release (@{ $changes->releases }) {
+    print "<div class=release>\n";
+    printf "<h2>%s %s %s</h2>\n",
+           $release->version,
+           $release->date // 'unknown-date',
+           $release->note // '';
+    if (defined($release->bullets)) {
+        foreach my $bullet (@{ $release->bullets }) {
+            print "<li>$bullet</li>\n";
+        }
+    }
+    else {
+        print "<pre>", $release->body, "</pre>\n";
+    }
+    print "</div>\n\n";
+}
+
+print "</body>\n</html>\n";
