@@ -62,6 +62,9 @@ These have the following characteristics:
   * Use the markdown bullet characters: * + -
   * If bullet characters line up vertically, we assume they're at the
     same level.
+  * [ ... ] is used for a section heading in CPAN::Changes::Spec;
+    we'll treat it like a bullet. Will to be careful about how we
+    interpret what level it's at.
   * If there's a tab character in the leading whitespace,
     give up trying to parse bullets.
   * If a line doesn't start with a bullet character, it's a continuation line.
