@@ -92,3 +92,23 @@ MetaCPAN.
  * The content is assumed to be UTF-8
  * Releases should be listed in date order, most recent to oldest.
 
+## Parsing
+
+This section will describe the API for a Changes parser.
+
+We could have a convention for supporting multiple formats,
+as long as there's a parser available for your format,
+and you note the format in your Changes file.
+
+    # format: Fruity
+
+If the format isn't mentioned, then we'd assume the 'default' / 'standard'
+format. If a format is given,
+then we'd look for `CPAN::Changes::Parser::Fruity`, or somesuch.
+
+All the parsers would support the same interface. So if you want your own
+mad format, as long as you're prepared to write a parser, then you can have
+a conformant Changes file that people can work with.
+
+But is this overkill? Are there people who really can't see the above format working for them?
+
